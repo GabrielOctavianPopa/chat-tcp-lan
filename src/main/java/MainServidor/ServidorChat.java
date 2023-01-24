@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 import static java.lang.System.out;
 
-public class ServidorChat {
+public class ServidorChat implements Runnable{
     ServerSocket socketServidor = null;
     Socket socketCliente = null;
 
@@ -15,6 +15,11 @@ public class ServidorChat {
         ServidorChat server = new ServidorChat();
     }
     public ServidorChat() {
+        run();
+    }
+
+    @Override
+    public void run() {
         try {
             // Crear el socket del servidor
             socketServidor = new ServerSocket(6000);

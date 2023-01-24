@@ -9,7 +9,7 @@ import BackApuestas.ServidorCarrerasLauncher;
 
 public class ServidorMainGui extends JFrame {
 
-    private JButton botoniniciar, botonpuerto, botoniniciarCarreras;
+    private JButton botoniniciar, botonpuerto, botoniniciarCarreras, botoniniciarChat;
     private JTextField campoPuerto;
     private JLabel labelPuerto, labelEstado;
     private JTextArea areaLog;
@@ -40,6 +40,10 @@ public class ServidorMainGui extends JFrame {
         botoniniciarCarreras = new JButton("Iniciar Carreras");
         botoniniciarCarreras.setIcon(new ImageIcon("src/main/resources/imagenes/iniciar_server.png"));
 
+        //boton que inicie el servidor de chat
+        botoniniciarChat = new JButton("Iniciar Chat");
+        botoniniciarChat.setIcon(new ImageIcon("src/main/resources/imagenes/iniciar_server.png"));
+
         // Create log area
         areaLog = new JTextArea();
         areaLog.setEditable(false);
@@ -58,14 +62,20 @@ public class ServidorMainGui extends JFrame {
         });
 
         botonpuerto.addActionListener(e ->  {
-            changePort();
+            cambiarPuerto();
+        });
+
+        botoniniciarChat.addActionListener(e ->  {
+            startServerChat();
         });
 
         // añadir los elementos a la interfaz
         portPanel.add(labelPuerto);
         portPanel.add(campoPuerto);
         portPanel.add(botonpuerto);
+        //temporal, cambiar a un pane
         portPanel.add(botoniniciarCarreras);
+        portPanel.add(botoniniciarChat);
 
         add(logScroll, BorderLayout.SOUTH);
 
@@ -89,9 +99,17 @@ public class ServidorMainGui extends JFrame {
     }
 
     private void startServerCarreras() {
-        ServidorCarrerasLauncher server = new ServidorCarrerasLauncher();
-        server.iniciarServidor();
+        ServidorCarrerasLauncher server = new ServidorCarrerasLauncher();//:D
+        Thread threadServer = new Thread(server);
+        threadServer.start();
     }
+
+    private void startServerChat(){
+        ServidorChat servidorChat = new ServidorChat();
+        Thread threadServer = new Thread(servidorChat);
+        threadServer.start();
+    }
+
 
     private void startServer() {
         if (!encendido) {
@@ -136,16 +154,16 @@ public class ServidorMainGui extends JFrame {
         }
     }
 
-    private void changePort() {
-        String newPort = campoPuerto.getText();
+    private void cambiarPuerto() {
+        String nuevoPuerto = campoPuerto.getText();
         try {
-            int port = Integer.parseInt(newPort);
-            if (port < 1 || port > 65535) {
+            int puerto = Integer.parseInt(nuevoPuerto);
+            if (puerto < 1 || puerto > 65535) {
                 throw new NumberFormatException();
             }
-            log("Puerto cambiado a " + port);
+            log("Puerto cambiado a " + puerto + ".");
         } catch (NumberFormatException e) {
-            log("Numero invalido");
+            log("Numero de puerto no valido.");
         }
     }
 

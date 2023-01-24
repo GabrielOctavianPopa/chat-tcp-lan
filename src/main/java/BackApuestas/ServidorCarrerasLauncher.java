@@ -8,7 +8,7 @@ import BackApuestas.datos.Caballo;
 import BackApuestas.datos.Carrera;
 import BackApuestas.guis.VentanaServer;
 
-public class ServidorCarrerasLauncher {
+public class ServidorCarrerasLauncher implements Runnable {
 
     private static final int TIEMPO_ENTRE_CARRERAS = 10;
     private Carrera carrera;
@@ -22,6 +22,10 @@ public class ServidorCarrerasLauncher {
     }
 
     public ServidorCarrerasLauncher() {
+
+    }
+
+    public void run(){
         tiempoActual = new Date();
         carrera = new Carrera();
 
@@ -47,9 +51,5 @@ public class ServidorCarrerasLauncher {
             socket.notifyFinCarrera(caballoGanador); //<-- migrar
             tiempoActual = new Date();
         }
-    }
-
-    public void iniciarServidor(){
-        new ServidorCarrerasLauncher();
     }
 }
