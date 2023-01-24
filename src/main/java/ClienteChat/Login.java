@@ -1,4 +1,4 @@
-package Client;
+package ClienteChat;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,6 +17,8 @@ public class Login extends JFrame {
     private Socket socket;
     private PrintWriter printWrite;
     private BufferedReader bufferedRead;
+    private final String HOST = "10.2.9.16";
+    private final int PUERTO = 6000;
 
     public Login() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -25,7 +27,7 @@ public class Login extends JFrame {
         campoNombreUsuario = new JTextField(20);
         campoContraseña = new JPasswordField(20);
         //tamaño de la imagen a 16x16
-        loginIcon = new ImageIcon( "src/main/resources/login.png" );
+        loginIcon = new ImageIcon( "src/main/resources/imagenes/login.png" );
         botonLogin = new JButton();
 
         loginIcon = new ImageIcon( loginIcon.getImage().getScaledInstance( 128, 42, Image.SCALE_DEFAULT ) );
@@ -131,7 +133,7 @@ public class Login extends JFrame {
     }
 
     public void connect() throws IOException {
-        socket = new Socket("10.2.9.16", 6000);
+        socket = new Socket(HOST, PUERTO);
         printWrite = new PrintWriter(socket.getOutputStream(), true);
         bufferedRead = new BufferedReader(new InputStreamReader(socket.getInputStream()));
     }

@@ -1,4 +1,4 @@
-package Server;
+package MainServidor;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -8,9 +8,11 @@ import java.net.Socket;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class HiloClietes implements Runnable {
+public class HiloClientes implements Runnable {
     private Socket socket = null;
-    private ArrayList<PrintWriter> clientes = null;
+    private  ArrayList<PrintWriter> clientes = null;
+    public static String[] usuarios = new String[20];
+    int i=0;
     private BufferedReader bufferedRead = null;
     private PrintWriter printWrite = null;
     private String clientIP = "";
@@ -21,10 +23,11 @@ public class HiloClietes implements Runnable {
     private final String RESPUESTA_ERROR = "ERROR";
 
 
-    public HiloClietes(Socket socket, ArrayList<PrintWriter> clientes) {
+    public HiloClientes(Socket socket, ArrayList<PrintWriter> clientes) {
         this.socket = socket;
         this.clientes = clientes;
     }
+
 
     public void run() {
         try {
@@ -72,6 +75,8 @@ public class HiloClietes implements Runnable {
     public boolean esLoginValido(String nombreUsuario, String contraseña) {
         boolean esValido = false;
         try {
+
+
             // Conectar a la base de datos
             Connection con = DriverManager.getConnection(URL,nombreSQL, passwordSQL);
 
@@ -88,7 +93,7 @@ public class HiloClietes implements Runnable {
                 int count = result.getInt(1);
                 if (count > 0) {
                     esValido = true;
-                    System.out.println("Login correcto");
+                    System.out.println("Login correcto: "+nombreUsuario);
                 }
             }
         } catch (SQLException e) {
@@ -105,6 +110,8 @@ public class HiloClietes implements Runnable {
 
             if (esLoginValido(usuario, contraseña)) {
                 printWrite.println(RESPUESTA_VALIDO);
+                usuarios[i]=usuario;
+                i++;
             } else {
                 printWrite.println(RESPUESTA_ERROR);
             }

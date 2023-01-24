@@ -1,9 +1,12 @@
-package Client;
+package ClienteChat;
+
+import MainServidor.HiloClientes;
 
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
 import java.net.*;
+import java.util.ArrayList;
 import javax.swing.*;
 
 public class ChatClient extends JFrame {
@@ -11,6 +14,8 @@ public class ChatClient extends JFrame {
     private JTextArea chatArea;
     private JTextField zonaEscritura;
     private JButton botonEnviar;
+    private JList<String> onlineUsers;
+    private JLabel onlineUsersLabel;
 
     // Atributos para la conexión y la comunicación
     private Socket socket;
@@ -24,40 +29,39 @@ public class ChatClient extends JFrame {
     public ChatClient(String nombreUsuario) {
         this.nombreDeUsuario = nombreUsuario;
         // Inicializar la interfaz gráfica de usuario
-        chatArea = new JTextArea();
-        zonaEscritura = new JTextField();
-        botonEnviar = new JButton("Enviar");
 
-        // Añadir evento de botón para enviar mensajes
-        botonEnviar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                mandarMensaje();
-            }
-        });
-
-        // Añadir evento de teclado para enviar mensajes con la tecla Enter
-        zonaEscritura.addKeyListener(new KeyAdapter() {
-            public void keyPressed(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    mandarMensaje();
-                }
-            }
-        });
-
-        // Colocar elementos de la interfaz gráfica de usuario en el marco
+        setTitle("Chat");
+        setSize(800, 600);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
+
+
+        JPanel mainPanel = new JPanel(new BorderLayout());
+        add(mainPanel, BorderLayout.CENTER);
+
+
+        JPanel chatPanel = new JPanel(new BorderLayout());
+        mainPanel.add(chatPanel, BorderLayout.CENTER);
+
+        chatArea = new JTextArea();
         chatArea.setEditable(false);
         chatArea.setLineWrap(true);
-        chatArea.setWrapStyleWord(true);
-        add(new JScrollPane(chatArea), BorderLayout.CENTER);
-        add(zonaEscritura, BorderLayout.SOUTH);
-        add(botonEnviar, BorderLayout.EAST);
+        JScrollPane scrollPane = new JScrollPane(chatArea);
+        chatPanel.add(scrollPane, BorderLayout.CENTER);
 
-        // Ajustar tamaño del marco y hacerlo visible
-        setSize(500, 300);
-        setVisible(true);
+        JPanel messagePanel = new JPanel(
+                new BorderLayout());
+        mainPanel.add(messagePanel, BorderLayout.SOUTH);
+        zonaEscritura = new JTextField();
+        messagePanel.add(zonaEscritura, BorderLayout.CENTER);
 
-        // Establecer conexión con el servidor
+        botonEnviar = new JButton("Enviar" );
+        messagePanel.add(botonEnviar, BorderLayout.EAST);
+
+        JPanel onlineUsersPanel = new JPanel(new BorderLayout());
+        mainPanel.add(onlineUsersPanel, BorderLayout.EAST);
+        onlineUsersPanel.setPreferredSize(new Dimension(150, 0));
+
         try {
             socket = new Socket(HOST, PUERTO);
             printWrite = new PrintWriter(socket.getOutputStream(), true);
@@ -71,7 +75,39 @@ public class ChatClient extends JFrame {
 
         // Iniciar hilo para escuchar mensajes entrantes
         new Thread(new LectorMensajesInterno()).start();
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        onlineUsersLabel = new JLabel("Usuarios en linea");
+        onlineUsersPanel.add(onlineUsersLabel, BorderLayout.NORTH);
+
+        onlineUsers = new JList<>();
+        onlineUsers.setFixedCellWidth(150);
+        onlineUsersPanel.add(onlineUsers, BorderLayout.CENTER);
+
+        botonEnviar.addActionListener(e -> mandarMensaje());
+        zonaEscritura.addActionListener(e -> mandarMensaje());
+        //JButton onlineButton = new JButton("Cambiar estado a activo");
+        //onlineUsersPanel.add(onlineButton, BorderLayout.SOUTH);
+        //onlineButton.addActionListener(e -> {
+            //###printWrite.println("ONLINE"+nombreDeUsuario);###
+            //Todo: solo te muestra el nombre de usuario del cliente local, no te muestra realmente los demas usuarios, arreglar esto
+        //});
+
+
+        // Add functionality for updating the list of online users
+
+        // Add functionality for handling private messages to specific users
+
+        // Add functionality for handling user joining and leaving the chat
+
+        onlineUsers.addListSelectionListener(e -> {
+            if(!e.getValueIsAdjusting()) {
+                String selectedUsername = onlineUsers.getSelectedValue();
+                int option = JOptionPane.showConfirmDialog(this, "Enviar mensaje a " + selectedUsername, "Escoge una opcion", JOptionPane.YES_NO_OPTION);
+                if(option == JOptionPane.YES_OPTION) {
+                    // code to send private message
+                }
+            }
+        });
+        new Thread(new hiloOnline("ONLINE")).start();
     }
 
     // Método para enviar mensajes
@@ -97,15 +133,21 @@ public class ChatClient extends JFrame {
             String mensaje;
             try {
                 while ((mensaje = bufferedRead.readLine()) != null) {
-                    if(mensaje.startsWith(nombreDeUsuario)){
-                        //no mostrar mis propios mensajes
-                    }else{
+                    if (mensaje.startsWith("ONLINE")) {
+                        onlineList = mensaje.substring(6).split(", ");
+                        onlineUsers.setListData(onlineList);
+                    }else if(mensaje.startsWith(nombreDeUsuario)){
+
+                    }
+                    else{
                         chatArea.append(mensaje + "\n");
                         //si la ventana no está activa, mostrar notificación
                         if(!isActive()){
                             windowsPopUp(mensaje);
                         }
                     }
+                    //El mensaje se muestra dos veces; Hay que arreglarlo
+
                 }
             } catch (IOException | AWTException e) {
                 e.printStackTrace();
