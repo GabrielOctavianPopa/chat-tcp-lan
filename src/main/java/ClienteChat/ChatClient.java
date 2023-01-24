@@ -25,6 +25,7 @@ public class ChatClient extends JFrame {
 
     private final String HOST = "10.2.9.16";
     private final int PUERTO = 6000;
+    private String onlineList[];
 
     public ChatClient(String nombreUsuario) {
         this.nombreDeUsuario = nombreUsuario;
@@ -123,6 +124,32 @@ public class ChatClient extends JFrame {
                 zonaEscritura.setText("");
             } else {
                 chatArea.append("Servidor no disponible.");
+            }
+        }
+    }
+    private class hiloOnline implements Runnable{
+        String comando;
+        public hiloOnline(String comando){
+            this.comando=comando;
+        }
+        public void run(){
+            String usuarios[]=new String[20];
+            if(comando=="ONLINE"){
+                while (true){
+                    synchronized(this) {
+                        usuarios=HiloClientes.usuarios;
+                        onlineList= new String[20];
+                        try {
+                            for(int i=0;i<usuarios.length;i++){
+                                onlineList[i]=usuarios[i];
+                            }
+                            wait(2000);
+                            onlineUsers.setListData(onlineList);
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                }
             }
         }
     }
