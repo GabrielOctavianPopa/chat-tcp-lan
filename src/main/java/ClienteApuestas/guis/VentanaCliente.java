@@ -8,13 +8,13 @@ import java.awt.event.WindowEvent;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
+
 
 import ClienteApuestas.datos.Jugador;
 import ClienteApuestas.datos.JugadorListener;
 import BackApuestas.datos.Carrera;
+
+import javax.swing.*;
 
 public class VentanaCliente extends JFrame implements JugadorListener, ActionListener {
     private Map<Integer, JButton> botonesApuesta = new HashMap<Integer, JButton>();

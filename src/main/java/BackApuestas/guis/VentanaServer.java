@@ -4,8 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-import javax.swing.JFrame;
-import javax.swing.JLabel;
+import javax.swing.*;
 
 import BackApuestas.datos.Carrera;
 import BackApuestas.datos.CarreraListener; //<-- migrar

@@ -23,7 +23,7 @@ public class ServidorChat implements Runnable{
         try {
             // Crear el socket del servidor
             socketServidor = new ServerSocket(6000);
-            System.out.println("Servidor iniciado");
+            System.out.println("Servidor de chat iniciado en el puerto 6000");
 
             // Crear un arraylist para almacenar los clientes conectados
             ArrayList<PrintWriter> clientes = new ArrayList<PrintWriter>();

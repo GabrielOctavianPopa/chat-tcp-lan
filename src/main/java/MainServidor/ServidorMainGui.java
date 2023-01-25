@@ -1,11 +1,12 @@
 package MainServidor;
-import javax.swing.*;
 import java.awt.*;
 import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
 
 import BackApuestas.ServidorCarrerasLauncher;
+
+import javax.swing.*;
 
 public class ServidorMainGui extends JFrame {
 
@@ -122,11 +123,11 @@ public class ServidorMainGui extends JFrame {
                     try {
                         int port = Integer.parseInt(campoPuerto.getText());
                         socketServer = new ServerSocket(port);
-                        log("Server iniciado en:  " + port);
+                        System.out.println("Server iniciado en:  " + port);
                         while (encendido) {
                             // Esperando a la conexion del cliente
                             Socket clientSocket = socketServer.accept();
-                            log("Cliente conectado desde: " + clientSocket.getInetAddress().getHostAddress());
+                            System.out.println("Cliente conectado desde: " + clientSocket.getInetAddress().getHostAddress());
                             numeroclientes++;
                             labelEstado.setText("Clientes conectados: " + numeroclientes);
 
@@ -136,7 +137,7 @@ public class ServidorMainGui extends JFrame {
                             thread.start();
                         }
                     } catch (IOException e) {
-                        log("Error: " + e.getMessage());
+                        System.out.println("Error: " + e.getMessage());
                     }
                 }
             }).start();
@@ -147,9 +148,9 @@ public class ServidorMainGui extends JFrame {
             labelEstado.setText("Servidor parado");
             try {
                 socketServer.close();
-                log("Servidor Parado");
+                System.out.println("Servidor Parado");
             } catch (IOException e) {
-                log("Error: " + e.getMessage());
+                System.out.println("Error: " + e.getMessage());
             }
         }
     }
@@ -161,9 +162,9 @@ public class ServidorMainGui extends JFrame {
             if (puerto < 1 || puerto > 65535) {
                 throw new NumberFormatException();
             }
-            log("Puerto cambiado a " + puerto + ".");
+            System.out.println("Puerto cambiado a " + puerto + ".");
         } catch (NumberFormatException e) {
-            log("Numero de puerto no valido.");
+            System.out.println("Numero de puerto no valido.");
         }
     }
 
