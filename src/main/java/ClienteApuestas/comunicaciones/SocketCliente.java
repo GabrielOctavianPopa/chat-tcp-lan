@@ -8,6 +8,7 @@ import java.net.UnknownHostException;
 
 import BackApuestas.comunicaciones.SocketServidor;
 
+//Todo: implementar el handler de los mensajes que uso en el chat cliente para migrar del esquema de datagramas a este
 public class SocketCliente {
     private SocketClienteListener chivato;
     public SocketCliente(SocketClienteListener chivato) {

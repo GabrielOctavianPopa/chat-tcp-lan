@@ -3,10 +3,8 @@ package ClienteChat;
 import MainServidor.HiloClientes;
 
 import java.awt.*;
-import java.awt.event.*;
 import java.io.*;
 import java.net.*;
-import java.util.ArrayList;
 import javax.swing.*;
 
 public class ChatClient extends JFrame {

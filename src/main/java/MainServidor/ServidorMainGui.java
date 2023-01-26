@@ -8,6 +8,7 @@ import BackApuestas.ServidorCarrerasLauncher;
 
 import javax.swing.*;
 
+@Deprecated
 public class ServidorMainGui extends JFrame {
 
     private JButton botoniniciar, botonpuerto, botoniniciarCarreras, botoniniciarChat;

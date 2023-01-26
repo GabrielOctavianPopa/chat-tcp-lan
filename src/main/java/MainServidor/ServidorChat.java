@@ -1,5 +1,7 @@
 package MainServidor;
 
+import BackApuestas.ServidorCarrerasLauncher;
+
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -12,10 +14,10 @@ public class ServidorChat implements Runnable{
     Socket socketCliente = null;
 
     public static void main(String[] args) {
-        ServidorChat server = new ServidorChat();
+        new ServidorChat();
     }
     public ServidorChat() {
-        run();
+
     }
 
     @Override

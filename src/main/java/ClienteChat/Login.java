@@ -5,7 +5,7 @@ import java.awt.*;
 import java.io.*;
 import java.net.Socket;
 
-public class Login extends JFrame {
+public class Login extends JFrame implements Runnable {
     // Atributos para la interfaz gráfica de usuario
     private JTextField campoNombreUsuario;
     private JPasswordField campoContraseña;
@@ -20,9 +20,17 @@ public class Login extends JFrame {
     private final String HOST = "10.2.9.16";
     private final int PUERTO = 6000;
 
+    public static void main(String[] args) {
+        new Login();
+    }
+
     public Login() {
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
+    }
+
+
+    @Override
+    public void run() {
+        setLocationRelativeTo(null); // para que aparezca en el centro de la pantalla
         // Inicializar la interfaz gráfica de usuario
         campoNombreUsuario = new JTextField(20);
         campoContraseña = new JPasswordField(20);
@@ -138,8 +146,5 @@ public class Login extends JFrame {
         bufferedRead = new BufferedReader(new InputStreamReader(socket.getInputStream()));
     }
 
-    public static void main(String[] args) {
-        Login login = new Login();
-        login.setVisible(true);
-    }
+
 }

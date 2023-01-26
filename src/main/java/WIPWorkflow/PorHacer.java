@@ -11,5 +11,7 @@ public class PorHacer {
      *       3. Hacer un GUI para el microservicio de chat
      *       3.1 El GUI tiene que tener un boton para apagar el microservicio de chat
      *       4. Hacer un GUI para el cliente de chat
+     *       * Se podria cambiar el esquema de las apuestas, este tiene que crear un servicio, la ventana de los caballos se deberia cambiar a "un cliente"
+     *       * Cuando se cierra cualquier ventana, se cierra la ventana principal
      */
 }
