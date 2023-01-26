@@ -290,7 +290,7 @@ public class ServidorMainGuiWIP extends JFrame {
                 layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addComponent(jPanel1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
         );
-        setSize(400, 800); //debug
+        setSize(400, 300); //debug
         setVisible(true);
     }// </editor-fold>
 }

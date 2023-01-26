@@ -13,6 +13,7 @@ import BackApuestas.datos.Caballo;
  * TODO: MIGRAR DE ESTE ESQUEMA DE COMUNICACIONES A UNA MAS PARECIDA A LA DEL CHAT
  */
 
+@Deprecated
 public class SocketServidor {
 
     public static String DIRECCION = "10.2.9.16";
