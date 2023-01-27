@@ -75,8 +75,6 @@ public class HiloClientes implements Runnable {
     public boolean esLoginValido(String nombreUsuario, String contraseña) {
         boolean esValido = false;
         try {
-
-
             // Conectar a la base de datos
             Connection con = DriverManager.getConnection(URL,nombreSQL, passwordSQL);
 

@@ -5,6 +5,7 @@ import BackApuestas.ServidorCarrerasLauncher;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.ArrayList;
 
 import static java.lang.System.out;
@@ -16,6 +17,7 @@ public class ServidorChat implements Runnable{
     public static void main(String[] args) {
         new ServidorChat();
     }
+
     public ServidorChat() {
 
     }
@@ -31,18 +33,30 @@ public class ServidorChat implements Runnable{
             ArrayList<PrintWriter> clientes = new ArrayList<PrintWriter>();
 
             // Bucle infinito para esperar conexiones de clientes
-            while (true) {
-                // Esperar conexión de un cliente
-                socketCliente = socketServidor.accept();
-                out.println("Cliente conectado desde: " + socketCliente.getInetAddress().getHostAddress());
+            try{
+                while (true) {
+                    // Esperar conexión de un cliente
+                    socketCliente = socketServidor.accept();
+                    out.println("Cliente conectado desde: " + socketCliente.getInetAddress().getHostAddress());
 
-                // Crear un hilo para manejar la conexión del cliente
-                HiloClientes handler = new HiloClientes(socketCliente, clientes);
-                Thread hilo = new Thread(handler);
-                hilo.start();
+                    // Crear un hilo para manejar la conexión del cliente
+                    HiloClientes handler = new HiloClientes(socketCliente, clientes);
+                    Thread hilo = new Thread(handler);
+                    hilo.start();
+                }
+            } catch (SocketException e){
+                System.out.println("Servidor de chat cerrado");
             }
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void closePort(){
+        try{
+            socketServidor.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 }

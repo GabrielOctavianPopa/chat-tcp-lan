@@ -1,5 +1,6 @@
 package BackApuestas;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
 
@@ -22,6 +23,9 @@ public class ServidorCarrerasLauncher implements Runnable {
     }
 
     public ServidorCarrerasLauncher() {
+    }
+
+    public void pararServidor(){
 
     }
 

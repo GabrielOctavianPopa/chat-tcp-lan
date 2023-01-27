@@ -101,7 +101,7 @@ public class Login extends JFrame implements Runnable {
         // Ajustar tamaño del marco y hacerlo visible
         setSize(400, 300);
         setTitle("Iniciar sesión");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setVisible(true);
     }
 

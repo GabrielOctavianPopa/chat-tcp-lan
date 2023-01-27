@@ -25,6 +25,7 @@ public class VentanaCliente extends JFrame implements JugadorListener, ActionLis
     public VentanaCliente(Jugador jugador) {
         this.jugador = jugador;
         this.setLayout(new GridLayout(Carrera.NUMERO_CORREDORES + 2, 1));
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         for(int i = 0; i< Carrera.NUMERO_CORREDORES; i++) {
             JButton botonApuesta = new JButton("Apostar por el caballo " + String.valueOf(i));
@@ -36,15 +37,6 @@ public class VentanaCliente extends JFrame implements JugadorListener, ActionLis
 
         this.add(labelEstado);
         this.add(labelDinero);
-
-        this.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent arg0) {
-                System.exit(0);
-            }
-
-        });
-
         this.setSize(300,300);
         this.setLocation(0, 0);
         this.setVisible(true);

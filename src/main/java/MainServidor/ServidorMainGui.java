@@ -96,7 +96,7 @@ public class ServidorMainGui extends JFrame {
 
         // Set window properties
         setSize(400, 800);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setVisible(true);
     }
 

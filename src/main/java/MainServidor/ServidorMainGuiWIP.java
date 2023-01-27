@@ -20,6 +20,7 @@ public class ServidorMainGuiWIP extends JFrame {
     private boolean encendidoMain, encendidoCarreras, encendidoChat;
     private ArrayList<PrintWriter> clientes = new ArrayList<PrintWriter>();
     private int numeroclientes = 0;
+    ServidorChat servidorChat = new ServidorChat();
 
     public static void main(String[] args) {
         EventQueue.invokeLater(() ->
@@ -60,12 +61,12 @@ public class ServidorMainGuiWIP extends JFrame {
             cambiarPuerto();
         });
 
-        botoniniciarChat.addActionListener(e ->  {
-            startServerChat();
-        });
-
         botoniniciarClienteCarreras.addActionListener(e ->  {
             startClientCarreras();
+        });
+
+        botoniniciarChat.addActionListener(e ->  {
+            startServerChat();
         });
 
         botoniniciarLogin.addActionListener(e ->  {
@@ -138,19 +139,20 @@ public class ServidorMainGuiWIP extends JFrame {
         }
     }
 
-    //Todo: cuando se cierra el servidor de carreras se cierra el servidor principal
     private void startServerCarreras() {
+        ServidorCarrerasLauncher sCaLa = new ServidorCarrerasLauncher();
+        Thread threadServer = null;
         if(!encendidoCarreras){
             encendidoCarreras = true;
             botoniniciarCarreras.setText("Parar Servidor Carreras");
             botoniniciarClienteCarreras.setEnabled(true);
-            Thread threadServer = new Thread(new ServidorCarrerasLauncher());
+            threadServer = new Thread(sCaLa);
             threadServer.start();
         } else if (encendidoCarreras) {
+            sCaLa.pararServidor();
             encendidoCarreras = false;
             botoniniciarCarreras.setText("Iniciar Servidor Carreras");
             botoniniciarClienteCarreras.setEnabled(false);
-            //Todo: matar el proceso del servidor de carreras
         }
     }
 
@@ -164,8 +166,8 @@ public class ServidorMainGuiWIP extends JFrame {
         }
     }
 
-    private void startServerChat(){
-        Thread threadServer = new Thread(new ServidorChat());
+    private void startServerChat() {
+        Thread threadServer = new Thread(servidorChat);
         if(!encendidoChat){
             encendidoChat = true;
             botoniniciarChat.setText("Parar Servidor Chat");
@@ -176,6 +178,7 @@ public class ServidorMainGuiWIP extends JFrame {
             botoniniciarChat.setText("Iniciar Servidor Chat");
             botoniniciarLogin.setEnabled(false);
             //Todo: para el hilo pero no libera el puerto 6000
+            servidorChat.closePort();
             System.out.println("Servidor de chat parado");
         }
     }

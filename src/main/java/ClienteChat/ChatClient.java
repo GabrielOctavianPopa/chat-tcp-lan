@@ -31,7 +31,7 @@ public class ChatClient extends JFrame {
 
         setTitle("Chat");
         setSize(800, 600);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new BorderLayout());
 
 

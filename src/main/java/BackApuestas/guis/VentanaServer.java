@@ -22,13 +22,7 @@ public class VentanaServer extends JFrame implements CarreraListener { //<-- mig
         this.add(panel, BorderLayout.CENTER);
         this.add(labelEstado, BorderLayout.SOUTH);
 
-        this.addWindowListener(new WindowAdapter() { //<-- mejorar
-            @Override
-            public void windowClosing(WindowEvent arg0) {
-                System.exit(0);
-            }
-
-        });
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         actualizar();
 
