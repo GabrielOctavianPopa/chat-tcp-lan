@@ -23,7 +23,7 @@ public class ChatClient extends JFrame {
 
     private final String HOST = "10.2.9.16";
     private final int PUERTO = 6000;
-    private String onlineList[];
+    private String onlineList[]=new String[20];
 
     public ChatClient(String nombreUsuario) {
         this.nombreDeUsuario = nombreUsuario;
@@ -127,22 +127,23 @@ public class ChatClient extends JFrame {
     }
     private class hiloOnline implements Runnable{
         String comando;
+        String usuarios[]=new String[20];
+
         public hiloOnline(String comando){
             this.comando=comando;
         }
         public void run(){
-            String usuarios[]=new String[20];
-            if(comando=="ONLINE"){
+            if(comando.equals("ONLINE")){
                 while (true){
                     synchronized(this) {
                         usuarios=HiloClientes.usuarios;
-                        onlineList= new String[20];
                         try {
                             for(int i=0;i<usuarios.length;i++){
                                 onlineList[i]=usuarios[i];
+                                //System.out.println(onlineList[i]);
                             }
-                            wait(2000);
                             onlineUsers.setListData(onlineList);
+                            wait(2000);
                         } catch (InterruptedException e) {
                             throw new RuntimeException(e);
                         }
@@ -157,10 +158,12 @@ public class ChatClient extends JFrame {
         public void run() {
             String mensaje;
             try {
+                int i=0;
                 while ((mensaje = bufferedRead.readLine()) != null) {
                     if (mensaje.startsWith("ONLINE")) {
                         onlineList = mensaje.substring(6).split(", ");
                         onlineUsers.setListData(onlineList);
+
                     }else if(mensaje.startsWith(nombreDeUsuario)){
 
                     }

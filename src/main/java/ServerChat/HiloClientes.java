@@ -110,9 +110,9 @@ public class HiloClientes implements Runnable {
             String contraseña = parts[2];
 
             if (esLoginValido(usuario, contraseña)) {
-                printWrite.println(RESPUESTA_VALIDO);
                 usuarios[i]=usuario;
                 i++;
+                printWrite.println(RESPUESTA_VALIDO);
             } else {
                 printWrite.println(RESPUESTA_ERROR);
             }
