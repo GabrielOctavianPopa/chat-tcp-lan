@@ -1,4 +1,4 @@
-package BackApuestas.datos;
+package ServerApuestas.datos;
 public class Caballo {
     private int distancia;
     private int crash;

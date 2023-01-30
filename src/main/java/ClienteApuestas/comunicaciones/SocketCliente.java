@@ -6,7 +6,7 @@ import java.net.InetAddress;
 import java.net.MulticastSocket;
 import java.net.UnknownHostException;
 
-import BackApuestas.comunicaciones.SocketServidor;
+import ServerApuestas.comunicaciones.SocketServidor;
 
 //Todo: implementar el handler de los mensajes que uso en el chat cliente para migrar del esquema de datagramas a este
 public class SocketCliente {

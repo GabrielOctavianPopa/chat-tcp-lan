@@ -15,6 +15,7 @@ public class ClienteCarrerasLauncher implements SocketClienteListener, Runnable{
     }
 
     public ClienteCarrerasLauncher() {
+        new Thread(this).start();
     }
 
     @Override

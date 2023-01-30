@@ -12,6 +12,9 @@ public class PorHacer {
      *       4.1 actualiar los usuarios online 🤛🏻
      *       * Se podria cambiar el esquema de las apuestas, este tiene que crear un servicio, la ventana de los caballos se deberia cambiar a una ventana independiente 🤛🏻
      *       * Cuando se cierra cualquier ventana, se cierra la ventana principal 👌🏻
+     *       * Cuando se "apague el servidor" deberian cancelarse todos las ventanas menos la principal, y los microservicios deberian cerrarse liberando asi los puertos 🤛🏻
+     *       * cambiar el layout de la ventana principal a algo mas util, como un gridbaglayout o un borderlayout 🤛🏻
+     *       * crear un launcher principal para los clientes 🤛🏻
      *
      */
 }

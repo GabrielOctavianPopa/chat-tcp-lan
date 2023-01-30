@@ -1,6 +1,6 @@
 package ClienteChat;
 
-import MainServidor.HiloClientes;
+import ServerChat.HiloClientes;
 
 import java.awt.*;
 import java.io.*;

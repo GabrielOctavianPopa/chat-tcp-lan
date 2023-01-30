@@ -1,6 +1,4 @@
-package MainServidor;
-
-import BackApuestas.ServidorCarrerasLauncher;
+package ServerChat;
 
 import java.io.*;
 import java.net.ServerSocket;

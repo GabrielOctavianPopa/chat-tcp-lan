@@ -1,4 +1,4 @@
-package BackApuestas.datos;
+package ServerApuestas.datos;
 
 /**
  * TODO: migrar a un esquema de conexion como la del chat

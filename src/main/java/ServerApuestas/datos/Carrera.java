@@ -1,4 +1,4 @@
-package BackApuestas.datos;
+package ServerApuestas.datos;
 
 import java.util.ArrayList;
 import java.util.List;

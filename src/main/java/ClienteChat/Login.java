@@ -145,6 +145,4 @@ public class Login extends JFrame implements Runnable {
         printWrite = new PrintWriter(socket.getOutputStream(), true);
         bufferedRead = new BufferedReader(new InputStreamReader(socket.getInputStream()));
     }
-
-
 }

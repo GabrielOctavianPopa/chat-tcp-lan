@@ -1,8 +1,10 @@
 package MainServidor;
 
-import BackApuestas.ServidorCarrerasLauncher;
+import ServerApuestas.ServidorCarrerasLauncher;
 import ClienteApuestas.ClienteCarrerasLauncher;
 import ClienteChat.Login;
+import ServerChat.HiloClientes;
+import ServerChat.ServidorChat;
 
 import javax.swing.*;
 import java.awt.*;
@@ -32,18 +34,6 @@ public class ServidorMainGuiWIP extends JFrame {
         // Crear elementos de la interfaz
         initComponents();
         setLayout(new BorderLayout());
-
-        // boton que inicie el servidor de principal
-        //botoniniciar.setIcon(new ImageIcon("src/main/resources/imagenes/iniciar_server.png"));
-
-        // parte para cambiar el puerto principal, se ejecuta cuando se le da a cambiar puerto
-        //botonPuerto.setIcon(new ImageIcon("src/main/resources/imagenes/cambiar.png"));
-
-        //boton que inicie el servidor de carreras
-        //botoniniciarCarreras.setIcon(new ImageIcon("src/main/resources/imagenes/iniciar_server.png"));
-
-        //boton que inicie el servidor de chat
-        //botoniniciarChat.setIcon(new ImageIcon("src/main/resources/imagenes/iniciar_server.png"));
 
         // Create status bar
         labelEstado = new JLabel("Servidor parado");
@@ -78,7 +68,6 @@ public class ServidorMainGuiWIP extends JFrame {
         if (!encendidoMain) {
             encendidoMain = true;
             botoniniciar.setText("Parar Servidor");
-            //botoniniciar.setIcon(new ImageIcon("src/main/resources/imagenes/stop.png"));
             labelEstado.setText("Servidor inciado en puerto : " + campoPuerto.getText());
             new Thread(() -> {
                 try {
@@ -193,8 +182,6 @@ public class ServidorMainGuiWIP extends JFrame {
         }
     }
 
-
-    //Todo: cambiar la interfaz para hacerla compatible con imagenes, cuando se activa uno de los botones
     @SuppressWarnings("unchecked")
     private void initComponents() {
         JPanel jPanel1 = new JPanel();

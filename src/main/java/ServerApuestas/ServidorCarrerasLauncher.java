@@ -1,13 +1,12 @@
-package BackApuestas;
+package ServerApuestas;
 
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
 
-import BackApuestas.comunicaciones.SocketServidor; //<-- migrar
-import BackApuestas.datos.Caballo;
-import BackApuestas.datos.Carrera;
-import BackApuestas.guis.VentanaServer;
+import ServerApuestas.comunicaciones.SocketServidor; //<-- migrar
+import ServerApuestas.datos.Caballo;
+import ServerApuestas.datos.Carrera;
+import ServerApuestas.guis.VentanaServer;
 
 public class ServidorCarrerasLauncher implements Runnable {
 

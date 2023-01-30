@@ -1,4 +1,4 @@
-package MainServidor;
+package ServerChat;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -51,7 +51,10 @@ public class HiloClientes implements Runnable {
                 String comando = parts[0];
                 if (comando.equals("LOGIN")) {
                     login(mensaje);
-                }else{
+                } else if (comando.equals("CONN")) {
+                    //responder con "El servidor esta encendido"
+                    printWrite.println("El servidor esta encendido");
+                }else {
                     // Enviar el mensaje a todos los clientes
                     for (PrintWriter cliente : clientes) {
                         cliente.println(mensaje);

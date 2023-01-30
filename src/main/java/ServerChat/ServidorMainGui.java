@@ -1,10 +1,10 @@
-package MainServidor;
+package ServerChat;
 import java.awt.*;
 import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
 
-import BackApuestas.ServidorCarrerasLauncher;
+import ServerApuestas.ServidorCarrerasLauncher;
 
 import javax.swing.*;
 
