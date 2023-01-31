@@ -36,11 +36,12 @@ public class ServidorChat implements Runnable{
                     // Esperar conexión de un cliente
                     socketCliente = socketServidor.accept();
                     out.println("Cliente conectado desde: " + socketCliente.getInetAddress().getHostAddress());
-
+                    HiloOnline hilo2 = new HiloOnline();
                     // Crear un hilo para manejar la conexión del cliente
-                    HiloClientes handler = new HiloClientes(socketCliente, clientes);
+                    HiloClientes handler = new HiloClientes(socketCliente, clientes,hilo2);
                     Thread hilo = new Thread(handler);
                     hilo.start();
+                    hilo2.run();
                 }
             } catch (SocketException e){
                 System.out.println("Servidor de chat cerrado");

@@ -136,17 +136,16 @@ public class ChatClient extends JFrame {
             if(comando.equals("ONLINE")){
                 while (true){
                     synchronized(this) {
-                        usuarios=HiloClientes.usuarios;
-                        try {
-                            for(int i=0;i<usuarios.length;i++){
-                                onlineList[i]=usuarios[i];
-                                //System.out.println(onlineList[i]);
-                            }
-                            onlineUsers.setListData(onlineList);
-                            wait(2000);
-                        } catch (InterruptedException e) {
-                            throw new RuntimeException(e);
-                        }
+//                        usuarios=HiloClientes.usuarios;
+//                        try {
+//                           hl=new HiloOnline(usuarios);
+//                           wait(2000);
+//                           onlineUsers.setListData(hl.getLista());
+//                        } catch (InterruptedException e) {
+//                            throw new RuntimeException(e);
+//                        }
+                        //coger el nombre de usuario de los usuarios conectados y mostrarlo en la lista
+                        onlineUsers.setListData(usuarios);
                     }
                 }
             }

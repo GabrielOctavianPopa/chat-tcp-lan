@@ -51,9 +51,6 @@ public class HiloClientes implements Runnable {
                 String comando = parts[0];
                 if (comando.equals("LOGIN")) {
                     login(mensaje);
-                } else if (comando.equals("CONN")) {
-                    //responder con "El servidor esta encendido"
-                    printWrite.println("El servidor esta encendido");
                 }else {
                     // Enviar el mensaje a todos los clientes
                     for (PrintWriter cliente : clientes) {
@@ -63,15 +60,16 @@ public class HiloClientes implements Runnable {
             }
         } catch (IOException ex) {
             throw new RuntimeException(ex);
-        } finally {
-            // Eliminar el stream de salida del cliente del arraylist de clientes
-            clientes.remove(printWrite);
-            try {
-                // Cerrar el socket del cliente
-                socket.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+//        } finally {
+//            // Eliminar el stream de salida del cliente del arraylist de clientes
+//            clientes.remove(printWrite);
+//            try {
+//                // Cerrar el socket del cliente
+//                socket.close();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
         }
     }
 
@@ -94,7 +92,9 @@ public class HiloClientes implements Runnable {
                 int count = result.getInt(1);
                 if (count > 0) {
                     esValido = true;
-                    System.out.println("Login correcto: "+nombreUsuario);
+                    System.out.println("Login correcto: " + nombreUsuario); //<-----------
+                    hilo.setnuevousuario(nombreUsuario);
+
                 }
             }
         } catch (SQLException e) {
@@ -103,9 +103,13 @@ public class HiloClientes implements Runnable {
         return esValido;
     }
 
-    public void login(String peticion) {
+    public void comprobarConexion(){
+        printWrite.println("El servidor esta encendido");
+    }
+
+    public void login(String peticionLogin) {
         try {
-            String[] parts = peticion.split(","); // divide la petición en tres partes, el comando "LOGIN", usuario y contraseña
+            String[] parts = peticionLogin.split(","); // divide la petición en tres partes, el comando "LOGIN", usuario y contraseña
             String usuario = parts[1];
             String contraseña = parts[2];
 

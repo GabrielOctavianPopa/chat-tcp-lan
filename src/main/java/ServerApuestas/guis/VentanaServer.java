@@ -5,9 +5,8 @@ import java.awt.BorderLayout;
 import javax.swing.*;
 
 import ServerApuestas.datos.Carrera;
-import ServerApuestas.datos.CarreraListener; //<-- migrar
 
-public class VentanaServer extends JFrame implements CarreraListener { //<-- migrar
+public class VentanaServer extends JFrame {
     private Carrera carrera;
     private JLabel labelEstado = new JLabel("");
     private PanelCarrera panel;
@@ -35,14 +34,12 @@ public class VentanaServer extends JFrame implements CarreraListener { //<-- mig
         repaint();
     }
 
-    @Override
-    public void notifyProgresoCarrera() {
+    public void notifyFinCarrera() {
         actualizar();
-    } //<-- migrar
+    }
 
-    @Override
-    public void notifyEstado(String estado) {
+    public void cambiarEstado(String estado) {
         labelEstado.setText(estado);
         repaint();
-    } //<-- migrar
+    }
 }

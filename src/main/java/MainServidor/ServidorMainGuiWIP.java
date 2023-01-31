@@ -4,6 +4,7 @@ import ServerApuestas.ServidorCarrerasLauncher;
 import ClienteApuestas.ClienteCarrerasLauncher;
 import ClienteChat.Login;
 import ServerChat.HiloClientes;
+import ServerChat.HiloOnline;
 import ServerChat.ServidorChat;
 
 import javax.swing.*;
@@ -85,9 +86,9 @@ public class ServidorMainGuiWIP extends JFrame {
                         System.out.println("Cliente conectado desde: " + clientSocket.getInetAddress().getHostAddress());
                         numeroclientes++;
                         labelEstado.setText("Clientes conectados: " + numeroclientes);
-
+                        HiloOnline hilo2 = new HiloOnline();
                         // Creamos un hilo para los diferentes clientes conectados
-                        HiloClientes handler = new HiloClientes(clientSocket, clientes);
+                        HiloClientes handler = new HiloClientes(clientSocket, clientes,hilo2);
                         Thread thread = new Thread(handler);
                         thread.start();
                     }

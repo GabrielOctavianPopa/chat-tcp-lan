@@ -9,10 +9,6 @@ import java.net.UnknownHostException;
 
 import ServerApuestas.datos.Caballo;
 
-/**
- * TODO: MIGRAR DE ESTE ESQUEMA DE COMUNICACIONES A UNA MAS PARECIDA A LA DEL CHAT
- */
-
 @Deprecated
 public class SocketServidor {
 
@@ -27,10 +23,10 @@ public class SocketServidor {
             socketServidor = new DatagramSocket();
         } catch (UnknownHostException e) {
             e.printStackTrace();
-            System.exit(1);
+            System.exit(1); // salir con codigo de error 1
         } catch (SocketException e) {
             e.printStackTrace();
-            System.exit(1);
+            System.exit(2); // salir con codigo de error 2
         }
     }
 

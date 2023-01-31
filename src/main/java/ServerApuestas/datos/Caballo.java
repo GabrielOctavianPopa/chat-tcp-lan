@@ -12,7 +12,7 @@ public class Caballo {
         distancia += pasos;
         distancia += crash;
     }
-    public void reiniciar() {
+    public void caerse() {
         distancia = 0;
         crash = (int)((Math.random() * 10) - 5);
     }

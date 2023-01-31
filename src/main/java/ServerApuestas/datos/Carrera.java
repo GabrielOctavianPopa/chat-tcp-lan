@@ -8,16 +8,15 @@ public class Carrera {
     public static int NUMERO_CORREDORES = 5;
     private int TIEMPO_ESPERAR = 25;
     private List<Caballo> corredores = new ArrayList<Caballo>();
-    private CarreraListener chivato;//<-- migrar
     public Carrera() {
         for(int i = 0; i< NUMERO_CORREDORES; i++) {
             corredores.add(new Caballo(i));
         }
     }
 
-    public void reiniciar() {
+    public void caerse() {
         for(Caballo caballo : corredores) {
-            caballo.reiniciar();
+            caballo.caerse();
         }
     }
 
@@ -29,9 +28,6 @@ public class Carrera {
             } catch(InterruptedException e) {}
             for(Caballo runner : corredores) {
                 runner.run();
-            }
-            if(chivato != null) { //<-- migrar
-                chivato.notifyProgresoCarrera(); //<-- migrar
             }
             ganador = getGanador();
         }
@@ -50,8 +46,4 @@ public class Carrera {
     public List<Caballo> getCorredores() {
         return corredores;
     }
-
-    public void setChivato(CarreraListener chivato) {
-        this.chivato = chivato;
-    } //<-- migrar
 }

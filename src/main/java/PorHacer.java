@@ -15,6 +15,7 @@ public class PorHacer {
      *       * Cuando se "apague el servidor" deberian cancelarse todos las ventanas menos la principal, y los microservicios deberian cerrarse liberando asi los puertos 🤛🏻
      *       * cambiar el layout de la ventana principal a algo mas util, como un gridbaglayout o un borderlayout 🤛🏻
      *       * crear un launcher principal para los clientes 🤛🏻
+     *       * la peticion "CONN" no le llega al main servidor, le llega a ServerChat HilosClientes, arreglar 🤛🏻
      *
      */
 }
