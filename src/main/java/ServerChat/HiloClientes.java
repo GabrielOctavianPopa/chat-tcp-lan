@@ -21,11 +21,14 @@ public class HiloClientes implements Runnable {
     private final String passwordSQL = "";
     private final String RESPUESTA_VALIDO = "OK";
     private final String RESPUESTA_ERROR = "ERROR";
+    private HiloOnline hilo;
 
 
-    public HiloClientes(Socket socket, ArrayList<PrintWriter> clientes) {
+    public HiloClientes(Socket socket, ArrayList<PrintWriter> clientes,HiloOnline hilo) {
         this.socket = socket;
         this.clientes = clientes;
+        this.hilo=hilo;
+
     }
 
 
@@ -114,8 +117,6 @@ public class HiloClientes implements Runnable {
             String contraseña = parts[2];
 
             if (esLoginValido(usuario, contraseña)) {
-                usuarios[i]=usuario;
-                i++;
                 printWrite.println(RESPUESTA_VALIDO);
             } else {
                 printWrite.println(RESPUESTA_ERROR);

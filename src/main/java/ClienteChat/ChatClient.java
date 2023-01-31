@@ -1,6 +1,7 @@
 package ClienteChat;
 
 import ServerChat.HiloClientes;
+import ServerChat.HiloOnline;
 
 import java.awt.*;
 import java.io.*;
@@ -128,7 +129,7 @@ public class ChatClient extends JFrame {
     private class hiloOnline implements Runnable{
         String comando;
         String usuarios[]=new String[20];
-
+        private ServerChat.HiloOnline hl;
         public hiloOnline(String comando){
             this.comando=comando;
         }
