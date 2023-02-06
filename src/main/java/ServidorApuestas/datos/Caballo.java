@@ -1,4 +1,4 @@
-package ServerApuestas.datos;
+package ServidorApuestas.datos;
 public class Caballo {
     private int distancia;
     private int crash;
@@ -12,7 +12,7 @@ public class Caballo {
         distancia += pasos;
         distancia += crash;
     }
-    public void caerse() {
+    public void reiniciar() {
         distancia = 0;
         crash = (int)((Math.random() * 10) - 5);
     }

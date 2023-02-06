@@ -1,7 +1,7 @@
 package MainServidor;
 
-import ServerApuestas.ServidorCarrerasLauncher;
-import ClienteApuestas.ClienteCarrerasLauncher;
+import ServidorApuestas.ServidorLauncher;
+import ClienteApuestas.ClienteLauncher;
 import ClienteChat.Login;
 import ServerChat.HiloClientes;
 import ServerChat.HiloOnline;
@@ -15,8 +15,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
-public class ServidorMainGuiWIP extends JFrame {
-    private JButton botonPuerto, botoniniciar, botoniniciarCarreras , botoniniciarChat, botoniniciarClienteCarreras, botoniniciarLogin;
+public class ServidorMainGui extends JFrame {
+    private JButton botonPuerto, botoniniciar, botoniniciarCarreras, botoniniciarChat, botoniniciarClienteCarreras, botoniniciarLogin;
     private JLabel labelEstado;
     private JTextField campoPuerto;
     private ServerSocket socketServer;
@@ -27,11 +27,11 @@ public class ServidorMainGuiWIP extends JFrame {
 
     public static void main(String[] args) {
         EventQueue.invokeLater(() ->
-            new ServidorMainGuiWIP().setVisible(true)
+                new ServidorMainGui().setVisible(true)
         );
     }
 
-    public ServidorMainGuiWIP() {
+    public ServidorMainGui() {
         // Crear elementos de la interfaz
         initComponents();
         setLayout(new BorderLayout());
@@ -40,27 +40,27 @@ public class ServidorMainGuiWIP extends JFrame {
         labelEstado = new JLabel("Servidor parado");
 
         //listener de los botones
-        botoniniciar.addActionListener(e ->  {
+        botoniniciar.addActionListener(e -> {
             startServer();
         });
 
-        botoniniciarCarreras.addActionListener(e ->  {
+        botoniniciarCarreras.addActionListener(e -> {
             startServerCarreras();
         });
 
-        botonPuerto.addActionListener(e ->  {
+        botonPuerto.addActionListener(e -> {
             cambiarPuerto();
         });
 
-        botoniniciarClienteCarreras.addActionListener(e ->  {
+        botoniniciarClienteCarreras.addActionListener(e -> {
             startClientCarreras();
         });
 
-        botoniniciarChat.addActionListener(e ->  {
+        botoniniciarChat.addActionListener(e -> {
             startServerChat();
         });
 
-        botoniniciarLogin.addActionListener(e ->  {
+        botoniniciarLogin.addActionListener(e -> {
             startClientLogin();
         });
     }
@@ -88,7 +88,7 @@ public class ServidorMainGuiWIP extends JFrame {
                         labelEstado.setText("Clientes conectados: " + numeroclientes);
                         HiloOnline hilo2 = new HiloOnline();
                         // Creamos un hilo para los diferentes clientes conectados
-                        HiloClientes handler = new HiloClientes(clientSocket, clientes,hilo2);
+                        HiloClientes handler = new HiloClientes(clientSocket, clientes, hilo2);
                         Thread thread = new Thread(handler);
                         thread.start();
                     }
@@ -130,26 +130,26 @@ public class ServidorMainGuiWIP extends JFrame {
     }
 
     private void startServerCarreras() {
-        ServidorCarrerasLauncher sCaLa = new ServidorCarrerasLauncher();
+        ServidorLauncher servidorLauncher = new ServidorLauncher();
         Thread threadServer = null;
-        if(!encendidoCarreras){
+        if (!encendidoCarreras) {
             encendidoCarreras = true;
-            botoniniciarCarreras.setText("Parar Servidor Carreras");
+            botoniniciarCarreras.setText("Parar Carreras");
             botoniniciarClienteCarreras.setEnabled(true);
-            threadServer = new Thread(sCaLa);
+            threadServer = new Thread(servidorLauncher);
             threadServer.start();
         } else if (encendidoCarreras) {
-            sCaLa.pararServidor();
             encendidoCarreras = false;
-            botoniniciarCarreras.setText("Iniciar Servidor Carreras");
+            botoniniciarCarreras.setText("Iniciar Carreras");
             botoniniciarClienteCarreras.setEnabled(false);
         }
     }
 
-    //Todo: arreglar el cliente, da error porque no es multicast, migrar esquema
-    private void startClientCarreras(){
-        Thread threadClient = new Thread(new ClienteCarrerasLauncher());
-        if(encendidoCarreras){
+    private void startClientCarreras() {
+        ClienteLauncher clienteLauncher = new ClienteLauncher();
+        Thread threadClient = new Thread(clienteLauncher);
+
+        if (encendidoCarreras) {
             threadClient.start();
         } else {
             JOptionPane.showMessageDialog(null, "El servidor principal no esta encendido");
@@ -158,7 +158,7 @@ public class ServidorMainGuiWIP extends JFrame {
 
     private void startServerChat() {
         Thread threadServer = new Thread(servidorChat);
-        if(!encendidoChat){
+        if (!encendidoChat) {
             encendidoChat = true;
             botoniniciarChat.setText("Parar Servidor Chat");
             botoniniciarLogin.setEnabled(true);
@@ -167,14 +167,13 @@ public class ServidorMainGuiWIP extends JFrame {
             encendidoChat = false;
             botoniniciarChat.setText("Iniciar Servidor Chat");
             botoniniciarLogin.setEnabled(false);
-            //Todo: para el hilo pero no libera el puerto 6000
             servidorChat.closePort();
             System.out.println("Servidor de chat parado");
         }
     }
 
-    private void startClientLogin(){ //Todo: cuando se cierra el cliente de login se cierra el servidor principal
-        if(encendidoChat){
+    private void startClientLogin() {
+        if (encendidoChat) {
             Login login = new Login();
             Thread threadLogin = new Thread(login);
             threadLogin.start();
@@ -186,6 +185,9 @@ public class ServidorMainGuiWIP extends JFrame {
     @SuppressWarnings("unchecked")
     private void initComponents() {
         JPanel jPanel1 = new JPanel();
+        this.setTitle("Servidor principal");
+        ImageIcon img = new ImageIcon("src/main/resources/imagenes/servidor.png");
+        this.setIconImage(img.getImage());
         botonPuerto = new JButton();
         campoPuerto = new JTextField();
         botoniniciar = new JButton();
@@ -281,7 +283,7 @@ public class ServidorMainGuiWIP extends JFrame {
                 layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addComponent(jPanel1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
         );
-        setSize(400, 300); //debug
+        this.pack();
         setVisible(true);
     }// </editor-fold>
 }

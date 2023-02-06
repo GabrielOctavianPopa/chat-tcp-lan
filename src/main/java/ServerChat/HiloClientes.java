@@ -63,16 +63,6 @@ public class HiloClientes implements Runnable {
             }
         } catch (IOException ex) {
             throw new RuntimeException(ex);
-//        } finally {
-//            // Eliminar el stream de salida del cliente del arraylist de clientes
-//            clientes.remove(printWrite);
-//            try {
-//                // Cerrar el socket del cliente
-//                socket.close();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
         }
     }
 
@@ -95,9 +85,7 @@ public class HiloClientes implements Runnable {
                 int count = result.getInt(1);
                 if (count > 0) {
                     esValido = true;
-                    System.out.println("Login correcto: " + nombreUsuario); //<-----------
-                    hilo.setnuevousuario(nombreUsuario);
-
+                    System.out.println("Login correcto: " + nombreUsuario);
                 }
             }
         } catch (SQLException e) {

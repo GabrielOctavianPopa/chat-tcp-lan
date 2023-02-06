@@ -1,14 +1,13 @@
-package ServerApuestas.guis;
+package ServidorApuestas.guis;
 
-import java.awt.Graphics;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import ServidorApuestas.datos.Carrera;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-
-import ServerApuestas.datos.Carrera;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class PanelCarrera extends JPanel {
     BufferedImage frameCaballo1 = null;

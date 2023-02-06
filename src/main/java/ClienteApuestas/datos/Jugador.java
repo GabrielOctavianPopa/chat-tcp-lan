@@ -1,6 +1,6 @@
 package ClienteApuestas.datos;
 
-import ServerApuestas.datos.Carrera;
+import ServidorApuestas.datos.Carrera;
 
 public class Jugador {
     private static final int DINERO_INICIAL = 100;

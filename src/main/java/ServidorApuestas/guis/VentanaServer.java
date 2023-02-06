@@ -1,12 +1,14 @@
-package ServerApuestas.guis;
+package ServidorApuestas.guis;
 
-import java.awt.BorderLayout;
+import ServidorApuestas.datos.Carrera;
+import ServidorApuestas.datos.CarreraListener;
 
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
-import ServerApuestas.datos.Carrera;
-
-public class VentanaServer extends JFrame {
+public class VentanaServer extends JFrame implements CarreraListener {
     private Carrera carrera;
     private JLabel labelEstado = new JLabel("");
     private PanelCarrera panel;
@@ -19,7 +21,11 @@ public class VentanaServer extends JFrame {
         this.add(panel, BorderLayout.CENTER);
         this.add(labelEstado, BorderLayout.SOUTH);
 
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        ImageIcon icono = new ImageIcon("src/main/resources/imagenes/horse.png");
+        this.setIconImage(icono.getImage());
+        this.setTitle("Servidor Apuestas");
+
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         actualizar();
 
@@ -34,11 +40,13 @@ public class VentanaServer extends JFrame {
         repaint();
     }
 
-    public void notifyFinCarrera() {
+    @Override
+    public void notifyProgresoCarrera() {
         actualizar();
     }
 
-    public void cambiarEstado(String estado) {
+    @Override
+    public void notifyEstado(String estado) {
         labelEstado.setText(estado);
         repaint();
     }

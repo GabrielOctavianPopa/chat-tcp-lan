@@ -17,7 +17,7 @@ public class Login extends JFrame implements Runnable {
     private Socket socket;
     private PrintWriter printWrite;
     private BufferedReader bufferedRead;
-    private final String HOST = "10.2.9.16";
+    private final String HOST = "localhost";
     private final int PUERTO = 6000;
 
     public static void main(String[] args) {
@@ -44,6 +44,9 @@ public class Login extends JFrame implements Runnable {
         errorLabel.setForeground(Color.RED);
         labelGuia = new JLabel("Introduce tu nombre de usuario y contraseña");
         labelGuia.setForeground(new Color(0, 0, 200));
+
+        ImageIcon loginIcon = new ImageIcon( "src/main/resources/imagenes/cliente.png" );
+        this.setIconImage(loginIcon.getImage());
 
         // Añadir evento de botón para iniciar sesión
         botonLogin.addActionListener(e -> {
@@ -117,8 +120,9 @@ public class Login extends JFrame implements Runnable {
             printWrite.println("LOGIN," + username + "," + passwordString);
             String response = bufferedRead.readLine();
             if (response.equals("OK")) {
-                ChatClient chat = new ChatClient(username);
-                chat.setVisible(true);
+                ChatClient chatClient = new ChatClient();
+                chatClient.setNombreDeUsuario(username);
+                chatClient.execute();
                 dispose();
             } else if (response.equals("ERROR")) {
                 errorLabel.setText("Nombre de usuario o contraseña incorrectos");
@@ -141,8 +145,12 @@ public class Login extends JFrame implements Runnable {
     }
 
     public void connect() throws IOException {
-        socket = new Socket(HOST, PUERTO);
-        printWrite = new PrintWriter(socket.getOutputStream(), true);
-        bufferedRead = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        try{
+            socket = new Socket(HOST, PUERTO);
+            printWrite = new PrintWriter(socket.getOutputStream(), true);
+            bufferedRead = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        } catch (IOException e) {
+            System.out.println("El servidor no está disponible");
+        }
     }
 }

@@ -1,18 +1,17 @@
 package ClienteApuestas.guis;
 
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.HashMap;
-import java.util.Map;
-
-
-
 import ClienteApuestas.datos.Jugador;
 import ClienteApuestas.datos.JugadorListener;
-import ServerApuestas.datos.Carrera;
+import ServidorApuestas.datos.Carrera;
 
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.HashMap;
+import java.util.Map;
 
 public class VentanaCliente extends JFrame implements JugadorListener, ActionListener {
     private Map<Integer, JButton> botonesApuesta = new HashMap<Integer, JButton>();
@@ -23,18 +22,25 @@ public class VentanaCliente extends JFrame implements JugadorListener, ActionLis
     public VentanaCliente(Jugador jugador) {
         this.jugador = jugador;
         this.setLayout(new GridLayout(Carrera.NUMERO_CORREDORES + 2, 1));
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         for(int i = 0; i< Carrera.NUMERO_CORREDORES; i++) {
-            JButton botonApuesta = new JButton("Apostar por el caballo " + String.valueOf(i));
+            JButton botonApuesta = new JButton("Apostar por el caballo " + String.valueOf(i+1));
             botonApuesta.setActionCommand(String.valueOf(i));
             botonApuesta.addActionListener(this);
             botonesApuesta.put(i, botonApuesta);
             this.add(botonApuesta);
+
+            ImageIcon icon = new ImageIcon("src/main/resources/imagenes/chip50.png");
+            this.setIconImage(icon.getImage());
+
+            this.setTitle("Cliente Apuestas");
         }
 
         this.add(labelEstado);
         this.add(labelDinero);
+
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+
         this.setSize(300,300);
         this.setLocation(0, 0);
         this.setVisible(true);

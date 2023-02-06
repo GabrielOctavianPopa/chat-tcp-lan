@@ -1,18 +1,13 @@
-package ServerApuestas.comunicaciones;
+package ServidorApuestas.comunicaciones;
+
+import ServidorApuestas.datos.Caballo;
 
 import java.io.IOException;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.InetAddress;
-import java.net.SocketException;
-import java.net.UnknownHostException;
+import java.net.*;
 
-import ServerApuestas.datos.Caballo;
-
-@Deprecated
 public class SocketServidor {
 
-    public static String DIRECCION = "10.2.9.16";
+    public static String DIRECCION = "224.0.0.1";
     public static int PUERTO = 8888;
     private DatagramSocket socketServidor;
     private InetAddress direccion;
@@ -23,10 +18,10 @@ public class SocketServidor {
             socketServidor = new DatagramSocket();
         } catch (UnknownHostException e) {
             e.printStackTrace();
-            System.exit(1); // salir con codigo de error 1
+            System.exit(1);
         } catch (SocketException e) {
             e.printStackTrace();
-            System.exit(2); // salir con codigo de error 2
+            System.exit(1);
         }
     }
 
@@ -39,7 +34,6 @@ public class SocketServidor {
     }
 
     private void send(int mensaje) {
-        System.out.println("Servidor enviando: " + mensaje);
         DatagramPacket paquete = new DatagramPacket(String.valueOf(mensaje).getBytes(), String.valueOf(mensaje).length(), direccion, PUERTO);
         try {
             socketServidor.send(paquete);

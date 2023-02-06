@@ -1,4 +1,4 @@
-package ServerApuestas.datos;
+package ServidorApuestas.datos;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,15 +8,16 @@ public class Carrera {
     public static int NUMERO_CORREDORES = 5;
     private int TIEMPO_ESPERAR = 25;
     private List<Caballo> corredores = new ArrayList<Caballo>();
+    private CarreraListener chivato;
     public Carrera() {
         for(int i = 0; i< NUMERO_CORREDORES; i++) {
             corredores.add(new Caballo(i));
         }
     }
 
-    public void caerse() {
+    public void reiniciar() {
         for(Caballo caballo : corredores) {
-            caballo.caerse();
+            caballo.reiniciar();
         }
     }
 
@@ -28,6 +29,9 @@ public class Carrera {
             } catch(InterruptedException e) {}
             for(Caballo runner : corredores) {
                 runner.run();
+            }
+            if(chivato != null) {
+                chivato.notifyProgresoCarrera();
             }
             ganador = getGanador();
         }
@@ -45,5 +49,9 @@ public class Carrera {
 
     public List<Caballo> getCorredores() {
         return corredores;
+    }
+
+    public void setChivato(CarreraListener chivato) {
+        this.chivato = chivato;
     }
 }
