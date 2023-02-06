@@ -21,13 +21,12 @@ public class Login extends JFrame implements Runnable {
     private final int PUERTO = 6000;
 
     public static void main(String[] args) {
-        new Login();
+        new Login().run();
     }
 
     public Login() {
+
     }
-
-
     @Override
     public void run() {
         setLocationRelativeTo(null); // para que aparezca en el centro de la pantalla

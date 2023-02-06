@@ -29,16 +29,13 @@ public class ChatClient extends JFrame {
     public ChatClient(String nombreUsuario) {
         this.nombreDeUsuario = nombreUsuario;
         // Inicializar la interfaz gráfica de usuario
-
         setTitle("Chat");
         setSize(800, 600);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new BorderLayout());
 
-
         JPanel mainPanel = new JPanel(new BorderLayout());
         add(mainPanel, BorderLayout.CENTER);
-
 
         JPanel chatPanel = new JPanel(new BorderLayout());
         mainPanel.add(chatPanel, BorderLayout.CENTER);
@@ -137,14 +134,17 @@ public class ChatClient extends JFrame {
             if(comando.equals("ONLINE")){
                 while (true){
                     synchronized(this) {
-//                        usuarios=HiloClientes.usuarios;
-//                        try {
-//                           hl=new HiloOnline(usuarios);
-//                           wait(2000);
-//                           onlineUsers.setListData(hl.getLista());
-//                        } catch (InterruptedException e) {
-//                            throw new RuntimeException(e);
-//                        }
+                        usuarios=HiloClientes.usuarios;
+                        try {
+                           hl=new HiloOnline(usuarios);
+                           wait(2000);
+                           String[] listaAux = hl.getLista();
+                           listaAux[1]=nombreDeUsuario;
+                           onlineUsers.setListData(listaAux);
+
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
                         //coger el nombre de usuario de los usuarios conectados y mostrarlo en la lista
                         onlineUsers.setListData(usuarios);
                     }
