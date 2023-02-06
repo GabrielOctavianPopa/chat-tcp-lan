@@ -1,5 +1,6 @@
 package MainCliente;
 
+import ClienteApuestas.ClienteLauncher;
 import ClienteChat.Login;
 
 import javax.swing.*;
@@ -18,7 +19,7 @@ class ClienteMainGUI {
 
     public void initComponents(){
         JFrame frame = new JFrame("Cliente");
-        botonConectar = new Button("Conectar");
+        botonConectar = new Button("On");
         botonCrearLogin = new Button("Login");
         botonCrearLogin.setEnabled(false);
         botonCrearClienteCarreras = new Button("Crear Cliente Carreras");
@@ -26,12 +27,12 @@ class ClienteMainGUI {
 
         botonConectar.addActionListener(e -> {
             if (!conectado) {
-                botonConectar.setLabel("Desconectar");
+                botonConectar.setLabel("Off");
                 conectado = true;
                 botonCrearLogin.setEnabled(true);
                 botonCrearClienteCarreras.setEnabled(true);
             } else if(conectado){
-                botonConectar.setLabel("Conectar");
+                botonConectar.setLabel("On");
                 conectado = false;
                 botonCrearLogin.setEnabled(false);
                 botonCrearClienteCarreras.setEnabled(false);
@@ -44,7 +45,8 @@ class ClienteMainGUI {
         });
 
         botonCrearClienteCarreras.addActionListener(e -> {
-            // TODO: arreglar el cliente de carreras
+            Thread hiloClienteCarreras = new Thread(new ClienteLauncher());
+            hiloClienteCarreras.start();
         });
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -55,5 +57,6 @@ class ClienteMainGUI {
         frame.add(botonConectar);
         frame.add(botonCrearLogin);
         frame.add(botonCrearClienteCarreras);
+        frame.pack();
     }
 }

@@ -26,9 +26,7 @@ public class ServidorMainGui extends JFrame {
     ServidorChat servidorChat = new ServidorChat();
 
     public static void main(String[] args) {
-        EventQueue.invokeLater(() ->
-                new ServidorMainGui().setVisible(true)
-        );
+        new ServidorMainGui().setVisible(true);
     }
 
     public ServidorMainGui() {

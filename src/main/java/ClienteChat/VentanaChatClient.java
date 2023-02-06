@@ -73,8 +73,8 @@ public class VentanaChatClient extends JFrame {
             labelRadu.setIcon(raduIcon);
             labelGabriel.setIcon(gabrielIcon);
 
-
-
+            ImageIcon icon = new ImageIcon("src/main/resources/imagenes/cliente.png");
+            setIconImage(icon.getImage());
 
             panelDerecha.add(labelRadu, BorderLayout.CENTER);
             panelDerecha.add(labelGabriel, BorderLayout.NORTH);

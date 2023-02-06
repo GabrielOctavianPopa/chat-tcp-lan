@@ -15,7 +15,6 @@ public class ChatClient extends SwingWorker<Void, Void> {
     protected Void doInBackground() throws Exception {
         VentanaChatClient ventanaChatClient = new VentanaChatClient(nombreDeUsuario);
         ventanaChatClient.setVisible(true);
-
         return null;
     }
 
